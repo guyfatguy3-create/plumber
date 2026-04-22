@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>$PLUMBER</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            overflow: hidden;
+            background: #000;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background-image: url('background.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* Enter Screen */
+        .enter-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            cursor: pointer;
+        }
+
+        .enter-text {
+            font-size: 1.2rem;
+            color: #888;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .enter-screen.hidden {
+            display: none;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            left: 15px;
+            top: 15px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 100;
+        }
+
+        .icon {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            padding: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .icon:hover {
+            transform: scale(1.1);
+        }
+
+        .icon svg {
+            width: 40px;
+            height: 40px;
+        }
+
+        .icon.tiktok svg {
+            fill: none;
+        }
+
+        .icon.x-btn svg {
+            fill: #000;
+        }
+
+        .icon span {
+            margin-top: 4px;
+            font-size: 10px;
+            color: #000;
+            font-weight: bold;
+        }
+
+        /* pump.fun button */
+        .pumpfun {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            padding: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .pumpfun:hover {
+            transform: scale(1.1);
+        }
+
+        .pumpfun-icon {
+            width: 35px;
+            height: 35px;
+            background: linear-gradient(135deg, #a8e6cf, #88d8b0);
+            border-radius: 10px;
+        }
+
+        .pumpfun span {
+            margin-top: 4px;
+            font-size: 10px;
+            color: #000;
+            font-weight: bold;
+        }
+
+        /* Sound button */
+        .sound-btn {
+            position: fixed;
+            bottom: 15px;
+            right: 15px;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.9);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            transition: all 0.2s ease;
+        }
+
+        .sound-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .sound-btn svg {
+            width: 24px;
+            height: 24px;
+            fill: #000;
+        }
+    </style>
+</head>
+<body>
+    <audio id="bgMusic" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Click to Enter -->
+    <div class="enter-screen" id="enterScreen">
+        <div class="enter-text">click to enter</div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <a href="#" class="icon tiktok" target="_blank">
+            <svg viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                <path d="M38.4 16.2c-2.94 0-5.55-1.35-7.29-3.45-.03-.03-.06-.09-.09-.12V31.5c0 6.63-5.37 12-12 12s-12-5.37-12-12 5.37-12 12-12c.66 0 1.29.06 1.92.15v6.15c-.63-.15-1.26-.3-1.92-.3-3.315 0-6 2.685-6 6s2.685 6 6 6 6-2.685 6-6V4.5h6c0 .39.03.78.09 1.17.48 3.27 2.91 5.88 6.09 6.51.63.12 1.26.18 1.92.18v3.84h-.72z" fill="#ff0050"/>
+                <path d="M38.4 16.2c-2.94 0-5.55-1.35-7.29-3.45-.03-.03-.06-.09-.09-.12V31.5c0 6.63-5.37 12-12 12s-12-5.37-12-12 5.37-12 12-12c.66 0 1.29.06 1.92.15v6.15c-.63-.15-1.26-.3-1.92-.3-3.315 0-6 2.685-6 6s2.685 6 6 6 6-2.685 6-6V4.5h6c0 .39.03.78.09 1.17.48 3.27 2.91 5.88 6.09 6.51.63.12 1.26.18 1.92.18v3.84h-.72z" fill="#00f2ea" transform="translate(-2, -2)"/>
+            </svg>
+            <span>TikTok</span>
+        </a>
+
+        <a href="#" class="icon x-btn" target="_blank">
+            <svg viewBox="0 0 24 24">
+                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+            <span>X</span>
+        </a>
+
+        <a href="#" class="pumpfun" target="_blank">
+            <div class="pumpfun-icon"></div>
+            <span>pump.fun</span>
+        </a>
+    </div>
+
+    <!-- Sound Button -->
+    <button class="sound-btn" id="soundBtn">
+        <svg viewBox="0 0 24 24" id="soundIcon">
+            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+        </svg>
+    </button>
+
+    <script>
+        const enterScreen = document.getElementById('enterScreen');
+        const music = document.getElementById('bgMusic');
+        const soundBtn = document.getElementById('soundBtn');
+        let playing = false;
+
+        enterScreen.onclick = () => {
+            music.play();
+            playing = true;
+            enterScreen.classList.add('hidden');
+        };
+
+        soundBtn.onclick = () => {
+            if (playing) {
+                music.pause();
+                playing = false;
+                soundBtn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z" fill="#000"/></svg>';
+            } else {
+                music.play();
+                playing = true;
+                soundBtn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" fill="#000"/></svg>';
+            }
+        };
+    </script>
+</body>
+</html>
